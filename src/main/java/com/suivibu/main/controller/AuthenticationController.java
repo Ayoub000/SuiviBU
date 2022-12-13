@@ -13,7 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,14 +60,13 @@ public class AuthenticationController {
 		}
 				
 
-		// Inject into security context
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// token creation
+		
 		Utilisateur user = (Utilisateur) authentication.getPrincipal();
 		String jws = jwtUtil.generateToken(user.getUsername());
 		int expiresIn = jwtUtil.getExpiresIn();
-		// Return the token
+		
 		return ResponseEntity.ok(new JwToken(jws, expiresIn));
 	}
 
@@ -85,9 +84,26 @@ public class AuthenticationController {
 
 			return ResponseEntity.ok(new JwToken(refreshedToken, expiresIn));
 		} else {
-			JwToken userTokenState = new JwToken();
-			return ResponseEntity.accepted().body(userTokenState);
+			JwToken jwToken = new JwToken();
+			return ResponseEntity.accepted().body(jwToken);
 		}
+	}
+	
+	@PostMapping(value = "/destroy")
+	public ResponseEntity<?> destroyAuthToken(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth != null && auth.isAuthenticated())
+		{
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+			SecurityContextHolder.getContext().setAuthentication(null);
+			auth.setAuthenticated(false);
+		}
+
+		return ResponseEntity.accepted().build();
 	}
 	
 	

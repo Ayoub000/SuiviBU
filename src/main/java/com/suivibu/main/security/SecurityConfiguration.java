@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -53,8 +52,9 @@ public class SecurityConfiguration {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).and()
 			.authorizeHttpRequests()
-			.requestMatchers(HttpMethod.GET,
-					"/*")
+			.requestMatchers(
+					HttpMethod.POST,
+					"/auth/generate")
 			.permitAll()
 			.anyRequest().authenticated().and()
 			.addFilterBefore(new JwtFilter(util, userDetailsService),
@@ -64,17 +64,5 @@ public class SecurityConfiguration {
 		return http.build();
 	}
 
-	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() {
-		// TokenAuthenticationFilter will ignore the below paths
-		return (web) -> {
-			web.ignoring().requestMatchers(
-					HttpMethod.POST,
-					"/auth/*");
-			web.ignoring().requestMatchers(
-					HttpMethod.GET,
-					"/");
-		};
-	}
 	
 }

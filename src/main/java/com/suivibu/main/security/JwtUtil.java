@@ -26,6 +26,7 @@ public class JwtUtil {
 
     @Value("${jwt.token.duration}")
     private int EXPIRES_IN;
+    
 
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
     
@@ -51,7 +52,7 @@ public class JwtUtil {
         }
         return issueAt;
     }
-
+    
     public String refreshToken(String token) {
         String refreshedToken;
         LocalDateTime current = LocalDateTime.now();
@@ -64,7 +65,7 @@ public class JwtUtil {
             refreshedToken = Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(tokenExpiry)
-                .signWith(new SecretKeySpec(SECRET.getBytes(), SIGNATURE_ALGORITHM.name()))
+                .signWith(new SecretKeySpec(SECRET.getBytes(), SIGNATURE_ALGORITHM.getJcaName()))
                 .compact();
         } catch (Exception e) {
             refreshedToken = null;
@@ -112,12 +113,8 @@ public class JwtUtil {
     }
     
     public String getToken(HttpServletRequest request)  {
-        /**
-         *  Getting the token from Authentication header
-         *  e.g Bearer your_token
-         */
-        String authHeader = getAuthHeaderFromHeader( request );
-        if ( authHeader != null && authHeader.startsWith("Bearer ")) {
+        String authHeader = getAuthHeaderFromHeader(request);
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
 
