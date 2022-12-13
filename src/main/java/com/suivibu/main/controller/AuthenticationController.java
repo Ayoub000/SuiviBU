@@ -29,7 +29,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthenticationController {

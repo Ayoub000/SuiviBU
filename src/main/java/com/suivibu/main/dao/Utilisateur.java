@@ -16,9 +16,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+
+
 
 @Entity
 @Table(name = "utilisateur")
@@ -47,10 +52,22 @@ public class Utilisateur implements UserDetails{
     @JoinColumn(name="idBU", nullable=false)
     private BusinessUnit bu;
     
-    public Utilisateur() {}
     
-	public Utilisateur(long idUtilisateur, String username, String password, String nom, String prenom, String trigramme,
-			String statut, BusinessUnit bu) {
+    @JsonManagedReference
+    @ManyToMany
+    @JoinTable(name = "utilisateurAuthority", 
+    		   joinColumns = @JoinColumn(name = "idUtilisateur"), 
+    		   inverseJoinColumns = @JoinColumn(name = "idAuthority"))
+    private Set<Authority> authorities;
+    
+    
+    
+    public Utilisateur() {}
+
+
+
+	public Utilisateur(long idUtilisateur, String username, String password, String nom, String prenom,
+			String trigramme, String statut, Set<Consultant> consultants, BusinessUnit bu, Set<Authority> authorities) {
 		super();
 		this.idUtilisateur = idUtilisateur;
 		this.username = username;
@@ -59,8 +76,11 @@ public class Utilisateur implements UserDetails{
 		this.prenom = prenom;
 		this.trigramme = trigramme;
 		this.statut = statut;
+		this.consultants = consultants;
 		this.bu = bu;
+		this.authorities = authorities;
 	}
+
 
 
 	public long getIdUtilisateur() {
@@ -144,36 +164,47 @@ public class Utilisateur implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		return authorities;
+	}
+
+	
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
+	
+
+	public Set<Consultant> getConsultants() {
+		return consultants;
+	}
+
+
+
+	public void setConsultants(Set<Consultant> consultants) {
+		this.consultants = consultants;
 	}
 
 
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
