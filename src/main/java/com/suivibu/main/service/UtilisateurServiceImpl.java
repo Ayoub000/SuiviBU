@@ -47,7 +47,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	
 	@Override
 	public List<Utilisateur> fetchUtilisateurs() throws AccessDeniedException {
-		return utilisateurRepo.findAll();
+		List<Utilisateur> utilisateurs = utilisateurRepo.findAll();
+		for(Utilisateur utilisateur : utilisateurs)
+		{
+			utilisateur.setPassword("******");
+		}
+		return utilisateurs;
 	}
 	
 	@Override

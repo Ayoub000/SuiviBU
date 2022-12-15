@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -58,6 +60,7 @@ public class Consultant {
     @JoinColumn(name="idClient", nullable=false)
     private Client client;
 	
+	@JsonBackReference
 	@ManyToOne
     @JoinColumn(name="idUtilisateur", nullable=false)
     private Utilisateur utilisateur;

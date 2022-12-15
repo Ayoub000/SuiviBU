@@ -2,8 +2,8 @@ package com.suivibu.main.enums;
 
 public enum Role {
 	
-	SUPERADMIN,
-	ADMIN,
-	USER
+	ROLE_SUPERADMIN,
+	ROLE_ADMIN,
+	ROLE_USER
 
 }

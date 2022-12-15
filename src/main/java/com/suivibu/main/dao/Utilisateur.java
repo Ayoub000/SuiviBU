@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +22,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
 
 
 
@@ -44,21 +44,25 @@ public class Utilisateur implements UserDetails{
     private String statut;
     
     
+    @JsonManagedReference
     @OneToMany(mappedBy="utilisateur")
     private Set<Consultant> consultants = new HashSet<>();
     
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "utilisateurAuthority", 
+    		   joinColumns = @JoinColumn(name = "idUtilisateur"), 
+    		   inverseJoinColumns = @JoinColumn(name = "idAuthority"))
+    private Set<Authority> authorities = new HashSet<>();
+    
+    
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="idBU", nullable=false)
     private BusinessUnit bu;
     
     
-    @JsonManagedReference
-    @ManyToMany
-    @JoinTable(name = "utilisateurAuthority", 
-    		   joinColumns = @JoinColumn(name = "idUtilisateur"), 
-    		   inverseJoinColumns = @JoinColumn(name = "idAuthority"))
-    private Set<Authority> authorities;
+    
     
     
     

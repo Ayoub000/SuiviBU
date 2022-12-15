@@ -9,25 +9,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.suivibu.main.dao.Consultant;
-import com.suivibu.main.service.ConsultantService;
+import com.suivibu.main.dao.Client;
+import com.suivibu.main.service.ClientService;
 
 
 
 @RestController
-@RequestMapping(value = "/consultant")
-public class ConsultantController {
-
+@RequestMapping(value = "/client")
+public class ClientController {
+	
+	
+	
 	@Autowired
-	private ConsultantService consultantService;
+	private ClientService clientService;
+	
+	
 	
 	
 	@GetMapping(value = "/")
-	public ResponseEntity<?> getConsultants()
+	public ResponseEntity<?> getClients()
 	{
 		try
 		{
-			return ResponseEntity.ok(consultantService.fetchConsultants());
+			return ResponseEntity.ok(clientService.fetchClients());
 		}
 		catch(Exception e)
 		{
@@ -37,14 +41,16 @@ public class ConsultantController {
 		
 	}
 	
+	
+	
 	@PostMapping(value = "/add")
-	public ResponseEntity<?> addConsultant(@RequestBody Consultant consultant)
+	public ResponseEntity<?> addClient(@RequestBody Client client)
 	{
-		Consultant newConsultant = null;
+		Client newClient = null;
 		HttpStatus status = null;
 		try
 		{
-			newConsultant = consultantService.saveConsultant(consultant);
+			newClient = clientService.saveClient(client);
 			status = HttpStatus.CREATED;
 		}
 		catch(Exception e)
@@ -54,7 +60,9 @@ public class ConsultantController {
 		}
 		
 		
-		return newConsultant != null ? ResponseEntity.status(status).body(newConsultant) : ResponseEntity.status(status).build();
+		return newClient != null 
+				? ResponseEntity.status(status).body(newClient) 
+						: ResponseEntity.status(status).build();
 	}
-	
+
 }

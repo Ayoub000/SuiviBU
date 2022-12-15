@@ -24,8 +24,10 @@ public class BusinessUnit {
 	private String ville;
 	
 	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="bu")
+	@OneToMany(mappedBy="bu")
     private Set<Utilisateur> utilisateurs = new HashSet<>();
+	
+	
 	
 	public BusinessUnit() {}
 	

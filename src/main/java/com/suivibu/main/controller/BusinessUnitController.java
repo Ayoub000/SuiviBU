@@ -15,21 +15,11 @@ public class BusinessUnitController {
 	@Autowired
 	private BusinessUnitService buService;
 	
-	
-
 	@GetMapping(value = "/")
 	public ResponseEntity<?> getBUs()
 	{
-		try
-		{
-			return ResponseEntity.ok(buService.fetchBUs());
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-		
+		return ResponseEntity.ok(buService.fetchBUs());
 	}
+
 	
 }
