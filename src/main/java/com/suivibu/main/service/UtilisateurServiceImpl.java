@@ -40,10 +40,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		return utilisateurRepo.save(utilisateur);
 	}
 	
-	@Override
-	public Utilisateur findByUsername(String username) {
-		return utilisateurRepo.findByUsername(username);
-	}
 	
 	@Override
 	public List<Utilisateur> fetchUtilisateurs() throws AccessDeniedException {
@@ -72,6 +68,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		utilisateur.setPassword(passwordEncoder.encode(newPassword));
 		utilisateurRepo.save(utilisateur);
 
+	}
+
+	@Override
+	public void deleteUtilisateur(long idUtilisateur) {
+		utilisateurRepo.deleteById(idUtilisateur);
 	}
 
 

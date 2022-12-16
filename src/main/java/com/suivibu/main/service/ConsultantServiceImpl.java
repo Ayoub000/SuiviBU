@@ -3,9 +3,11 @@ package com.suivibu.main.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.suivibu.main.dao.Consultant;
+import com.suivibu.main.dao.Utilisateur;
 import com.suivibu.main.repo.ConsultantRepo;
 
 
@@ -19,12 +21,17 @@ public class ConsultantServiceImpl implements ConsultantService {
 	
 	@Override
 	public List<Consultant> fetchConsultants() {
-		return consultantRepo.findAll();
+		
+		Utilisateur utilisateur = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return consultantRepo.findByUtilisateur(utilisateur);
 	}
 	
+	
 	@Override
-	public Consultant saveConsultant(Consultant consultant)
+	public Consultant addConsultant(Consultant consultant)
 	{
+		Utilisateur utilisateur = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		consultant.setUtilisateur(utilisateur);
 		return consultantRepo.save(consultant);
 	}
 

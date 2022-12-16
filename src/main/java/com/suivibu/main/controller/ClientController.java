@@ -43,14 +43,14 @@ public class ClientController {
 	
 	
 	
-	@PostMapping(value = "/add")
+	@PostMapping(value = "/")
 	public ResponseEntity<?> addClient(@RequestBody Client client)
 	{
 		Client newClient = null;
 		HttpStatus status = null;
 		try
 		{
-			newClient = clientService.saveClient(client);
+			newClient = clientService.addClient(client);
 			status = HttpStatus.CREATED;
 		}
 		catch(Exception e)

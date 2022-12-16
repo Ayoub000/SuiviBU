@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,20 +48,24 @@ public class Consultant {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateDernierDej;
 	
+	@JsonManagedReference(value="sptconsultant")
 	@OneToMany(mappedBy="consultant")
     private Set<SuiviProjetTalent> spts = new HashSet<>();
 
+	@JsonManagedReference(value="spcconsultant")
 	@OneToMany(mappedBy="consultant")
     private Set<SuiviProjetClient> spcs = new HashSet<>();
 
+	@JsonManagedReference(value="eaconsultant")
 	@OneToMany(mappedBy="consultant")
     private Set<EntretienAnnuel> eas = new HashSet<>();
 	
+	@JsonBackReference(value="consultantclient")
 	@ManyToOne
     @JoinColumn(name="idClient", nullable=false)
     private Client client;
 	
-	@JsonBackReference
+	@JsonBackReference(value="consultantutilisateur")
 	@ManyToOne
     @JoinColumn(name="idUtilisateur", nullable=false)
     private Utilisateur utilisateur;

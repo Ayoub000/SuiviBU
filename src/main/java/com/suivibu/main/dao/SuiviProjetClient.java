@@ -2,6 +2,8 @@ package com.suivibu.main.dao;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class SuiviProjetClient {
 	
 	private String commentaire;
 	
+	@JsonBackReference(value="spcconsultant")
 	@ManyToOne
 	@JoinColumn(name="idConsultant", nullable=false)
 	private Consultant consultant;

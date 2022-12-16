@@ -10,12 +10,15 @@ import com.suivibu.main.dao.Utilisateur;
 public interface UtilisateurService{
 	
 	@PreAuthorize("hasRole('SUPERADMIN')")
+	void deleteUtilisateur(long idUtilisateur);
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	Utilisateur addUtilisateur(Utilisateur utilisateur);
 	
-	@PreAuthorize("hasRole('SUPERADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	List<Utilisateur> fetchUtilisateurs();
 	
-	Utilisateur findByUsername(String username);
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	void changePassword(String oldPassword, String newPassword);
 
 }

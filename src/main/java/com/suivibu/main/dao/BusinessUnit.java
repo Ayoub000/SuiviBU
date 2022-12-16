@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +22,7 @@ public class BusinessUnit {
 	
 	private String ville;
 	
-	@JsonManagedReference
+	@JsonManagedReference(value="buutilisateur")
 	@OneToMany(mappedBy="bu")
     private Set<Utilisateur> utilisateurs = new HashSet<>();
 	

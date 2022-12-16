@@ -44,7 +44,7 @@ public class Utilisateur implements UserDetails{
     private String statut;
     
     
-    @JsonManagedReference
+    @JsonManagedReference(value="consultantutilisateur")
     @OneToMany(mappedBy="utilisateur")
     private Set<Consultant> consultants = new HashSet<>();
     
@@ -56,8 +56,8 @@ public class Utilisateur implements UserDetails{
     private Set<Authority> authorities = new HashSet<>();
     
     
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference(value="buutilisateur")
+    @ManyToOne
     @JoinColumn(name="idBU", nullable=false)
     private BusinessUnit bu;
     

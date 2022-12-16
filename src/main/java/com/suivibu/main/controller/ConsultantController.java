@@ -37,14 +37,14 @@ public class ConsultantController {
 		
 	}
 	
-	@PostMapping(value = "/add")
+	@PostMapping(value = "/")
 	public ResponseEntity<?> addConsultant(@RequestBody Consultant consultant)
 	{
 		Consultant newConsultant = null;
 		HttpStatus status = null;
 		try
 		{
-			newConsultant = consultantService.saveConsultant(consultant);
+			newConsultant = consultantService.addConsultant(consultant);
 			status = HttpStatus.CREATED;
 		}
 		catch(Exception e)
