@@ -50,15 +50,15 @@ public class Consultant {
 	private Date dateDernierDej;
 	
 	@JsonManagedReference(value="sptconsultant")
-	@OneToMany(mappedBy="consultant", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="consultant", cascade = CascadeType.PERSIST)
     private Set<SuiviProjetTalent> spts = new HashSet<>();
 
 	@JsonManagedReference(value="spcconsultant")
-	@OneToMany(mappedBy="consultant", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="consultant", cascade = CascadeType.PERSIST)
     private Set<SuiviProjetClient> spcs = new HashSet<>();
 
 	@JsonManagedReference(value="eaconsultant")
-	@OneToMany(mappedBy="consultant", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="consultant", cascade = CascadeType.PERSIST)
     private Set<EntretienAnnuel> eas = new HashSet<>();
 	
 	@JsonBackReference(value="consultantclient")

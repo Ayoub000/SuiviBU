@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +29,7 @@ public class Client {
 	private String adresse;
 	
 	@JsonManagedReference(value="consultantclient")
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy="client", cascade = CascadeType.PERSIST)
     private Set<Consultant> consultants = new HashSet<>();
 	
 	

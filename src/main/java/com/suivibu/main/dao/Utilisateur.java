@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,6 +31,11 @@ import jakarta.persistence.Table;
 public class Utilisateur implements UserDetails{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idUtilisateur;
@@ -45,7 +51,7 @@ public class Utilisateur implements UserDetails{
     
     
     @JsonManagedReference(value="consultantutilisateur")
-    @OneToMany(mappedBy="utilisateur")
+    @OneToMany(mappedBy="utilisateur", cascade = CascadeType.PERSIST)
     private Set<Consultant> consultants = new HashSet<>();
     
     
