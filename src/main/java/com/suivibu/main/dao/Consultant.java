@@ -7,6 +7,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -49,15 +50,15 @@ public class Consultant {
 	private Date dateDernierDej;
 	
 	@JsonManagedReference(value="sptconsultant")
-	@OneToMany(mappedBy="consultant")
+	@OneToMany(mappedBy="consultant", cascade = CascadeType.ALL)
     private Set<SuiviProjetTalent> spts = new HashSet<>();
 
 	@JsonManagedReference(value="spcconsultant")
-	@OneToMany(mappedBy="consultant")
+	@OneToMany(mappedBy="consultant", cascade = CascadeType.ALL)
     private Set<SuiviProjetClient> spcs = new HashSet<>();
 
 	@JsonManagedReference(value="eaconsultant")
-	@OneToMany(mappedBy="consultant")
+	@OneToMany(mappedBy="consultant", cascade = CascadeType.ALL)
     private Set<EntretienAnnuel> eas = new HashSet<>();
 	
 	@JsonBackReference(value="consultantclient")
