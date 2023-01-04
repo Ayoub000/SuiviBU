@@ -45,7 +45,6 @@ public class AuthenticationController {
 	public ResponseEntity<?> createAuthToken(@RequestBody JwtAuthRequest authenticationRequest,
 			HttpServletResponse response) throws AuthenticationException, IOException {
 
-		// Perform the security
 		Authentication authentication = null;
 		try
 		{

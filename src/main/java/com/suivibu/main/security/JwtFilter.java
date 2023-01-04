@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-
 public class JwtFilter extends OncePerRequestFilter{
 
     private JwtUtil util;
@@ -24,7 +23,6 @@ public class JwtFilter extends OncePerRequestFilter{
         this.util = util;
         this.userDetailsService = userDetailsService;
     }
-
 
     @Override
     public void doFilterInternal(

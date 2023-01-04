@@ -9,5 +9,6 @@ public class SuiviBuApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SuiviBuApplication.class, args);
 	}
+	
 
 }
