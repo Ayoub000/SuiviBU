@@ -2,6 +2,7 @@ package com.suivibu.main.security;
 
 import java.io.IOException;
 
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 public class JwtFilter extends OncePerRequestFilter{
-
+	
     private JwtUtil util;
 
     private UserDetailsService userDetailsService;
@@ -30,9 +31,16 @@ public class JwtFilter extends OncePerRequestFilter{
             HttpServletResponse response,
             FilterChain chain
     ) throws IOException, ServletException {
-
+    	
+    	
+    	String authToken = util.getToken(request);
+    	
+    	if (util.isTokenRevoked(authToken)) {
+    		  chain.doFilter(request, response);
+    		  return;
+    		}
+    	
         String username;
-        String authToken = util.getToken(request);
 
         if (authToken != null) {
             username = util.getUsernameFromToken(authToken);

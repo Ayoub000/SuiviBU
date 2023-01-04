@@ -13,7 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,15 +92,14 @@ public class AuthenticationController {
 			HttpServletResponse response,
 			Principal principal) {
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(auth != null && auth.isAuthenticated())
-		{
-			new SecurityContextLogoutHandler().logout(request, response, auth);
-			SecurityContextHolder.getContext().setAuthentication(null);
-			auth.setAuthenticated(false);
+		String authToken = jwtUtil.getToken(request);
+
+		if (authToken != null && principal != null) {
+			jwtUtil.revokeToken(authToken);
+			return ResponseEntity.accepted().build();
 		}
 
-		return ResponseEntity.accepted().build();
+		return ResponseEntity.badRequest().build();
 	}
 	
 	

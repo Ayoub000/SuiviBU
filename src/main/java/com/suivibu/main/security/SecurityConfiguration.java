@@ -43,12 +43,14 @@ public class SecurityConfiguration {
 
 	@Autowired
 	private JwtUtil util;
+	
+	
+	
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
-
 
 
 	@Bean

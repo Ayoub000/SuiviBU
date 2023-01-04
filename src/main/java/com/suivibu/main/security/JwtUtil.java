@@ -15,6 +15,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 
+
+
 @Component
 public class JwtUtil {
 	
@@ -26,11 +28,12 @@ public class JwtUtil {
 
     @Value("${jwt.token.duration}")
     private int EXPIRES_IN;
-    
 
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
     
 
+    
+    
     public String getUsernameFromToken(String token) {
         String username;
         try {
@@ -117,12 +120,18 @@ public class JwtUtil {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
-
         return null;
     }
 
     public String getAuthHeaderFromHeader(HttpServletRequest request) {
         return request.getHeader("Authorization");
     }
+	
+	public void revokeToken(String token) {
+		TokenWarehouse.getRevokedTokens().add(token);
+	}
 
+	public boolean isTokenRevoked(String token) {
+    	return TokenWarehouse.getRevokedTokens().contains(token);
+    }
 }
