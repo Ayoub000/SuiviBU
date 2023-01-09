@@ -28,6 +28,8 @@ public class SuiviProjetClient {
 	
 	private String commentaire;
 	
+	private boolean realise;
+	
 	@JsonBackReference(value="spcconsultant")
 	@ManyToOne
 	@JoinColumn(name="idConsultant", nullable=false)
@@ -36,46 +38,66 @@ public class SuiviProjetClient {
 	
 	public SuiviProjetClient() {}
 
-	public SuiviProjetClient(long idPC, Date date, String commentaire, Consultant consultant) {
+
+	public SuiviProjetClient(long idPC, Date date, String commentaire, boolean realise, Consultant consultant) {
 		super();
 		this.idPC = idPC;
 		this.date = date;
 		this.commentaire = commentaire;
+		this.realise = realise;
 		this.consultant = consultant;
 	}
-	
+
 
 	public long getIdPC() {
 		return idPC;
 	}
 
+
 	public void setIdPC(long idPC) {
 		this.idPC = idPC;
 	}
+
 
 	public Date getDate() {
 		return date;
 	}
 
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 
 	public String getCommentaire() {
 		return commentaire;
 	}
 
+
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
 	}
+
+
+	public boolean isRealise() {
+		return realise;
+	}
+
+
+	public void setRealise(boolean realise) {
+		this.realise = realise;
+	}
+
 
 	public Consultant getConsultant() {
 		return consultant;
 	}
 
+
 	public void setConsultant(Consultant consultant) {
 		this.consultant = consultant;
 	}
+
 	
 	
 	

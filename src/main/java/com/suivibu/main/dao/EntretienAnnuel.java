@@ -28,6 +28,8 @@ public class EntretienAnnuel {
 	
 	private String commentaire;
 	
+	private boolean realise;
+	
 	@JsonBackReference(value="eaconsultant")
 	@ManyToOne
 	@JoinColumn(name="idConsultant", nullable=false)
@@ -36,45 +38,71 @@ public class EntretienAnnuel {
 	
 	public EntretienAnnuel() {}
 
-	public EntretienAnnuel(long idEA, Date date, String commentaire, Consultant consultant) {
+	
+	
+
+	public EntretienAnnuel(long idEA, Date date, String commentaire, boolean realise, Consultant consultant) {
 		super();
 		this.idEA = idEA;
 		this.date = date;
 		this.commentaire = commentaire;
+		this.realise = realise;
 		this.consultant = consultant;
 	}
+
+
+
+
 
 	public long getIdEA() {
 		return idEA;
 	}
 
+
 	public void setIdEA(long idEA) {
 		this.idEA = idEA;
 	}
+
 
 	public Date getDate() {
 		return date;
 	}
 
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 
 	public String getCommentaire() {
 		return commentaire;
 	}
 
+
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
 	}
+
+
+	public boolean isRealise() {
+		return realise;
+	}
+
+
+	public void setRealise(boolean realise) {
+		this.realise = realise;
+	}
+
 
 	public Consultant getConsultant() {
 		return consultant;
 	}
 
+
 	public void setConsultant(Consultant consultant) {
 		this.consultant = consultant;
 	}
+
 	
 	
 	

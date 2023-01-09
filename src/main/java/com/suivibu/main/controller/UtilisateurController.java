@@ -1,5 +1,8 @@
 package com.suivibu.main.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,6 +39,20 @@ public class UtilisateurController {
 	public ResponseEntity<?> getUtilisateurs()
 	{
 		return ResponseEntity.ok(userService.fetchUtilisateurs());
+	}
+	
+	
+	@GetMapping(value = "/whoami")
+	public ResponseEntity<?> getUtilisateur()
+	{
+		Utilisateur utilisateur = userService.fetchUtilisateur();
+		Map<String, Object> response = new HashMap<String, Object>();
+		Map<String, String> bu = new HashMap<String, String>();
+		bu.put("idBU", String.valueOf(utilisateur.getBu().getIdBU()));
+		bu.put("ville", utilisateur.getBu().getVille());
+		response.put("utilisateur", utilisateur);
+		response.put("bu", bu);
+		return ResponseEntity.ok(response);
 	}
 	
 	

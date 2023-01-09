@@ -85,6 +85,7 @@ public class SuiviServiceImpl implements SuiviService{
 		SuiviProjetTalent fspt = fetchSpt(id);
 		fspt.setDate(spt.getDate());
 		fspt.setCommentaire(spt.getCommentaire());
+		fspt.setRealise(spt.isRealise());
 		return sptRepo.save(fspt);
 	}
 
@@ -93,6 +94,7 @@ public class SuiviServiceImpl implements SuiviService{
 		EntretienAnnuel fea = fetchEa(id);
 		fea.setDate(ea.getDate());
 		fea.setCommentaire(ea.getCommentaire());
+		fea.setRealise(fea.isRealise());
 		return eaRepo.save(fea);
 	}
 
@@ -101,6 +103,7 @@ public class SuiviServiceImpl implements SuiviService{
 		SuiviProjetClient fspc = fetchSpc(id);
 		fspc.setDate(spc.getDate());
 		fspc.setCommentaire(spc.getCommentaire());
+		fspc.setRealise(fspc.isRealise());
 		return spcRepo.save(fspc);
 	}
 

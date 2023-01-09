@@ -12,5 +12,14 @@ public interface ClientService {
 	List<Client> fetchClients();
 	
 	@PreAuthorize("hasAnyRole('ADMIN','USER')")
+	Client getClientById(Long id);
+	
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	Client addClient(Client client);
+	
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
+	Client updateClient(Long id, Client client);
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	boolean deleteClient(Long id);
 }

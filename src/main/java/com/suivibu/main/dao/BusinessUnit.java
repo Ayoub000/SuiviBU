@@ -1,17 +1,11 @@
 package com.suivibu.main.dao;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "businessunit")
@@ -23,19 +17,14 @@ public class BusinessUnit {
 	
 	private String ville;
 	
-	@JsonManagedReference(value="buutilisateur")
-	@OneToMany(mappedBy="bu", cascade = CascadeType.PERSIST)
-    private Set<Utilisateur> utilisateurs = new HashSet<>();
-	
 	
 	
 	public BusinessUnit() {}
 	
-	public BusinessUnit(long idBU, String ville, Set<Utilisateur> utilisateurs) {
+	public BusinessUnit(long idBU, String ville) {
 		super();
 		this.idBU = idBU;
 		this.ville = ville;
-		this.utilisateurs = utilisateurs;
 	}
 	
 
@@ -54,13 +43,4 @@ public class BusinessUnit {
 		this.ville = ville;
 	}
 	
-	public Set<Utilisateur> getUtilisateurs() {
-		return utilisateurs;
-	}
-	public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
-		this.utilisateurs = utilisateurs;
-	}
-	
-	
-
 }

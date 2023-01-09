@@ -52,6 +52,18 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 	
 	@Override
+	public Utilisateur fetchUtilisateur() throws AccessDeniedException {
+		
+		Utilisateur utilisateur = (Utilisateur) SecurityContextHolder
+												.getContext()
+												.getAuthentication()
+												.getPrincipal();
+
+		utilisateur.setPassword("******");
+		return utilisateur;
+	}
+	
+	@Override
 	public void changePassword(String oldPassword, String newPassword) {
 
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();

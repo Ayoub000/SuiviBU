@@ -19,6 +19,9 @@ public interface UtilisateurService{
 	List<Utilisateur> fetchUtilisateurs();
 	
 	@PreAuthorize("hasAnyRole('ADMIN','USER')")
+	Utilisateur fetchUtilisateur();
+	
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	void changePassword(String oldPassword, String newPassword);
 
 }

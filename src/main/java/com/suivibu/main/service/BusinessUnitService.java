@@ -8,6 +8,6 @@ import com.suivibu.main.dao.BusinessUnit;
 
 public interface BusinessUnitService {
 	
-	@PreAuthorize("hasRole('SUPERADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	List<BusinessUnit> fetchBUs();
 }

@@ -51,7 +51,7 @@ public class Utilisateur implements UserDetails{
     
     
     @JsonManagedReference(value="consultantutilisateur")
-    @OneToMany(mappedBy="utilisateur", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy="utilisateur", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Consultant> consultants = new HashSet<>();
     
     
@@ -63,7 +63,7 @@ public class Utilisateur implements UserDetails{
     
     
     @JsonBackReference(value="buutilisateur")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="idBU", nullable=false)
     private BusinessUnit bu;
     

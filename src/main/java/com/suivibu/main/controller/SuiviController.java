@@ -88,7 +88,7 @@ public class SuiviController {
 	
 	
 	@PostMapping(value = "/spc")
-	public ResponseEntity<?> addSpt(@RequestBody SuiviProjetClient spc)
+	public ResponseEntity<?> addSpc(@RequestBody SuiviProjetClient spc)
 	{
 		SuiviProjetClient newSpc = null;
 		HttpStatus status = null;
@@ -150,7 +150,7 @@ public class SuiviController {
 	
 	
 	@PutMapping(value = "/spc/{id}")
-	public ResponseEntity<?> updateSpt(@PathVariable long id, @RequestBody SuiviProjetClient spc)
+	public ResponseEntity<?> updateSpc(@PathVariable long id, @RequestBody SuiviProjetClient spc)
 	{
 		SuiviProjetClient updatedSpc = null;
 		HttpStatus status = null;
